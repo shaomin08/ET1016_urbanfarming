@@ -53,13 +53,12 @@ int i;
 void loop()
 {
   float celsius;
-  float time;
   celsius = temper.getTemperature();//get temperature
  
   displayTemperature((int8_t)celsius);//display temp, measure the temp
   delay(1000);//delay 1000ms
   
-  int t; //timer
+  int t;
   int i,k;
   for(t = 30; t >= 0; t--)  
   {
@@ -114,7 +113,7 @@ void displayTemperature(int8_t temperature)
 	temp[1] = temperature / 10;
 	temp[2] = temperature % 10;
 	temp[3] = 12;	          //index of 'C' for celsius degree symbol.
-	disp.display(temp);
+	disp.display(temp); //display temperature
 	if(temperature > 27) //if temperature goes beyond 27 degrees, the aircon will automatically on
 	{
 		digitalWrite(LED_RED, HIGH); //indicates that the aircon is on
@@ -129,3 +128,5 @@ void displayTemperature(int8_t temperature)
 	}
 	return;
 }
+
+
