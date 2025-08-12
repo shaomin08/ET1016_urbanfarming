@@ -52,19 +52,23 @@ void setup()
 int i;
 void loop()
 {
-  float celsius;
-  celsius = temper.getTemperature();//get temperature
- 
-  displayTemperature((int8_t)celsius);//display temp, measure the temp
-  delay(1000);//delay 1000ms
-  
+  int temp, oldtemp = 0;
   int t;
   int i,k;
-  for(t = 30; t >= 0; t--)  
+  
+  for(t = 15; t >= 0; t--)  
   {
   digitalWrite(LED_BLUE, LOW); //when sprinkler is not on, the led is not on too
   disp.display(t); //diaplay time
-  delay(1000);
+  delay(500);
+  temp = temper.getTemperature();//get temperature
+  if(temp != oldtemp)
+  {
+    displayTemperature(temp);//display temp, measure the temp
+    oldtemp = temp;
+  }
+  
+  delay(500);
   }
   
   digitalWrite(LED_BLUE, HIGH); //when sprinkler is on, the led is on
@@ -91,6 +95,7 @@ void loop()
     }
   } 
  
+  digitalWrite(LED_BLUE, LOW);
   delay(100);
 }
 /************************************************* *********************/
@@ -98,10 +103,12 @@ void loop()
 /* Parameter: -int8_t temperature, temperature range is -40 ~ 125 degrees celsius */
 /* Return Value: void */
 
+int flag = 0;
 void displayTemperature(int8_t temperature)
 {
-	int flag = 0;
   int8_t temp[4];
+
+
   if(temperature < 0)
 	{
 		temp[0] = INDEX_NEGATIVE_SIGN;
@@ -126,7 +133,9 @@ void displayTemperature(int8_t temperature)
 		digitalWrite(LED_RED, LOW); //indicates that the aircon is off
 		flag = 0;
 	}
+  delay(1000);
+  
+  
 	return;
+
 }
-
-
