@@ -72,11 +72,11 @@ void loop()
   }
   
   digitalWrite(LED_BLUE, HIGH); //when sprinkler is on, the led is on
-  for(k=0;k<3;k++) //Sprinkler spin twice to water the plants
+  for(k=0;k<2;k++) //Sprinkler spin twice to water the plants
   {
    for (i = 0; i <= 90; i += 5) { //Slow Turn anti-clockwise (from 0 to 90 degree
         pwmController.setChannelPWM(1, pwmServo1.pwmForAngle(i));
-        delay(250);  //longer delay for Slow turn movement
+        delay(200);  //longer delay for Slow turn movement
     }
 
   for (i = 90; i >= 0; i -= 5) { //Fast Turn clockwise (from 90 to 0 degree)
@@ -86,7 +86,7 @@ void loop()
 
   for (i = 0; i >= -90; i -= 5) { //Slow Turn clockwise (from 0 to -90 degree)
         pwmController.setChannelPWM(1, pwmServo1.pwmForAngle(i));
-        delay(250); //longer delay for Slow turn movement
+        delay(200); //longer delay for Slow turn movement
     }
 
   for (i = -90; i <= 0; i += 5) { //Fast Turn anti-clockwise (from -90 to 0 degree)
@@ -121,7 +121,7 @@ void displayTemperature(int8_t temperature)
 	temp[2] = temperature % 10;
 	temp[3] = 12;	          //index of 'C' for celsius degree symbol.
 	disp.display(temp); //display temperature
-	if(temperature > 27) //if temperature goes beyond 27 degrees, the aircon will automatically on
+	if(temperature > 26) //if temperature goes beyond 27 degrees, the aircon will automatically on
 	{
 		digitalWrite(LED_RED, HIGH); //indicates that the aircon is on
 		flag++;
